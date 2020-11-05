@@ -1,6 +1,6 @@
 // Globala variabler
 
-const wordList = ["äpple", "päron", "citron"];     // Array: med spelets alla ord
+const wordList = ["äpple", "päron", "citron", "bil", "toffel"];     // Array: med spelets alla ord
 let selectedWord;    // Sträng: ett av orden valt av en slumpgenerator från arrayen ovan
 
 let guesses = 0;     // Number: håller antalet gissningar som gjorts
@@ -25,7 +25,6 @@ function randomWord (){
 // Funktion som tar fram bokstävernas rutor, antal rutor beror på vilket ord slumptas fram
 function createBlanks(word){
     for (let i = 0; i < word.length; i++) {
-        // const blank = "_";
         const blank = document.querySelector(".letterBoxesUl");
         blank.innerHTML += `<li><input type="text" disabled value="_" /></li>`;
         
@@ -33,13 +32,22 @@ function createBlanks(word){
 }
 // Funktion som körs när du trycker på bokstäverna och gissar bokstav
 function guessLetter(letter){
-    
+    console.log(letter);
 }
 // Funktion som ropas vid vinst eller förlust, gör olika saker beroende tillståndet
 // Funktion som inaktiverar/aktiverar bokstavsknapparna beroende på vilken del av spelet du är på
 
 
-
+//eventlisteners for start game button
 const clickToStart = document.querySelector("#startGameBtn");
 clickToStart.addEventListener("click", startGame);
+
+//eventliseners for letter buttons
+const clickLetter = document.querySelectorAll("#letterButtons button");  
+for (let i = 0; i < clickLetter.length; i++) {
+    const element = clickLetter[i];
+    element.addEventListener("click", () => guessLetter(element.value));   
+}
+// clickLetter.foreach(element => element.addEventListener("click", () => guessLetter(element.value))));                   
+
 
