@@ -26,13 +26,18 @@ function randomWord (){
 function createBlanks(word){
     for (let i = 0; i < word.length; i++) {
         const blank = document.querySelector(".letterBoxesUl");
-        blank.innerHTML += `<li><input type="text" disabled value="_" /></li>`;
+        blank.innerHTML += `<li><input type="text" value="_" /></li>`;
         
     }
 }
 // Funktion som körs när du trycker på bokstäverna och gissar bokstav
-function guessLetter(letter){
-    console.log(letter);
+function guessLetter(letter, word){
+    for (let i = 0; i < word.length; i++) {
+        if(letter == word[i]){
+
+        }
+        
+    }
 }
 // Funktion som ropas vid vinst eller förlust, gör olika saker beroende tillståndet
 // Funktion som inaktiverar/aktiverar bokstavsknapparna beroende på vilken del av spelet du är på
@@ -46,7 +51,7 @@ clickToStart.addEventListener("click", startGame);
 const clickLetter = document.querySelectorAll("#letterButtons button");  
 for (let i = 0; i < clickLetter.length; i++) {
     const element = clickLetter[i];
-    element.addEventListener("click", () => guessLetter(element.value));   
+    element.addEventListener("click", () => guessLetter(element.value, selectedWord));   
 }
 // clickLetter.foreach(element => element.addEventListener("click", () => guessLetter(element.value))));                   
 
