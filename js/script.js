@@ -2,7 +2,7 @@
 
 const wordList = ["ÄPPLE", "PÄRON", "CITRON", "BIL", "TOFFEL"];     // Array: med spelets alla ord
 let selectedWord;    // Sträng: ett av orden valt av en slumpgenerator från arrayen ovan
-let firstGame = true;
+
 let guesses = 0;     // Number: håller antalet gissningar som gjorts
 let hangmanImg;      // Sträng: sökväg till bild som kommer visas (och ändras) fel svar. t.ex. `/images/h1.png`
 
@@ -24,7 +24,7 @@ for (let i = 0; i < clickLetter.length; i++) {
 
 clickLetter.forEach(button => button.disabled = true); // Avaktiverar knapparna så de inte kan användas innan man startar spelet
 
-//Tar bort HTML
+//removes HTML
 const setEmpty = (element) => element.innerHTML = '';
 
 // Funktion som startar spelet vid knapptryckning, och då tillkallas andra funktioner
@@ -32,9 +32,8 @@ function startGame() {
     selectedWord = randomWord();
     console.log(selectedWord);
     activateLetterButtons(clickLetter);
-    deleteBlanks(firstGame);
+    deleteBlanks();
     createBlanks(selectedWord);
-    firstGame = false;
 }
 // Funktion som slumpar fram ett ord
 function randomWord() {
@@ -53,11 +52,10 @@ function createBlanks(word) {
 
     }
 }
-function deleteBlanks(firstGame){
+function deleteBlanks(){
     const currentBlanks = document.querySelectorAll(".letterBoxesUl");
-    const setEmpty = (element) => element.innerHTML = '';
  
-    if (firstGame == false){
+    if (currentBlanks != ''){
         // currentBlanks.removeChild(main.children);
         currentBlanks.forEach(setEmpty);
     }
@@ -67,10 +65,12 @@ function guessLetter(letter, word) {
     let guessedRight = false;
     const getBlanks = document.querySelectorAll(".letterBoxesUl li");
     for (let i = 0; i < word.length; i++) {
-
+        console.log(getBlanks[i]);
+        console.log(word.charAt(i));
         if (letter == word.charAt(i)) {
-            getBlanks[i].innerHTML = '<li><input type="text" value="' + letter + '" /></li>'; //funkar inte riktigt, placerar bokstäver fel och skriver över ibland? 
+            getBlanks[i].innerHTML = '<input type="text" value="' + letter + '" />'; //funkar inte riktigt, placerar bokstäver fel och skriver över ibland? 
             // getBlanks[i].value = letter; //funkar inte 
+            console.log(getBlanks[i]);
             guessedRight = true;
         }
 
