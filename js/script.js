@@ -1,6 +1,6 @@
 // Globala variabler
 
-const wordList = ["äpple", "päron", "citron", "bil", "toffel"];     // Array: med spelets alla ord
+const wordList = ["ÄPPLE", "PÄRON", "CITRON", "BIL", "TOFFEL"];     // Array: med spelets alla ord
 let selectedWord;    // Sträng: ett av orden valt av en slumpgenerator från arrayen ovan
 
 let guesses = 0;     // Number: håller antalet gissningar som gjorts
@@ -32,16 +32,28 @@ function createBlanks(word){
 }
 // Funktion som körs när du trycker på bokstäverna och gissar bokstav
 function guessLetter(letter, word){
-    for (let i = 0; i < word.length; i++) {
-        if(letter == word[i]){
+    let guessedRight = false;
 
+    for (let i = 0; i < word.length; i++) {
+        
+        if(letter == word.charAt(i)){
+            const getBlanks = document.querySelectorAll(".letterBoxesUl li");
+            getBlanks[i].innerHTML = '<li><input type="text" value="' + letter + '" /></li>';
+            guessedRight = true;    
         }
         
+    }
+    if(guessedRight == false){
+        guesses++;
+        console.log(guesses);
+
     }
 }
 // Funktion som ropas vid vinst eller förlust, gör olika saker beroende tillståndet
 // Funktion som inaktiverar/aktiverar bokstavsknapparna beroende på vilken del av spelet du är på
+function activateLetterButtons(){
 
+}
 
 //eventlisteners for start game button
 const clickToStart = document.querySelector("#startGameBtn");
@@ -50,9 +62,9 @@ clickToStart.addEventListener("click", startGame);
 //eventliseners for letter buttons
 const clickLetter = document.querySelectorAll("#letterButtons button");  
 for (let i = 0; i < clickLetter.length; i++) {
-    const element = clickLetter[i];
-    element.addEventListener("click", () => guessLetter(element.value, selectedWord));   
+    const button = clickLetter[i];
+    button.addEventListener("click", () => guessLetter(button.value, selectedWord));   
 }
-// clickLetter.foreach(element => element.addEventListener("click", () => guessLetter(element.value))));                   
+// clickLetter.forEach(element => element.addEventListener("click", () => guessLetter(element.value, selectedWord))));                   
 
 
