@@ -3,7 +3,8 @@
 const wordList = ["ÄPPLE", "PÄRON", "CITRON", "BIL", "TOFFEL"];     // Array: med spelets alla ord
 let selectedWord;    // Sträng: ett av orden valt av en slumpgenerator från arrayen ovan
 
-let guesses = 0;     // Number: håller antalet gissningar som gjorts
+let guesses = 0;     // Number: håller antalet fel gissningar som gjorts
+let rightGuesses = 0; // Number: håller antalet rätt gissningar som gjorts
 let hangmanImg;      // Sträng: sökväg till bild som kommer visas (och ändras) fel svar. t.ex. `/images/h1.png`
 
 let msgHolderEl;     // DOM-nod: Ger meddelande när spelet är över
@@ -49,7 +50,6 @@ function createBlanks(word) {
     for (let i = 0; i < word.length; i++) {
         
         blank.innerHTML += `<li><input type="text" value="_" /></li>`;
-
     }
 }
 function deleteBlanks(){
@@ -69,24 +69,36 @@ function guessLetter(letter, word) {
         if (letter == word.charAt(i)) {
             getBlanks[i].innerHTML = '<input type="text" value="' + letter + '" />'; 
             guessedRight = true;
+            rightGuesses++;
         }
-
     }
     if (guessedRight == false) {
         guesses++;
         console.log("du har svarat fel: " + guesses + " gånger.");
 
-    }
+    } 
     disableUsedButton(clickLetter, letter);
-    
+    winOrLose(guesses, rightGuesses, word);
 }
 // Funktion som ropas vid vinst eller förlust, gör olika saker beroende tillståndet
+function winOrLose(guesses, rightGuesses, word){
+    if(guesses > 7){
+        if (confirm('Du förlorade. Vill du spela igen?')){
+            startGame();
+        } else {
+            prompt('Okej, tryck på "Starta spel" om du ändrar dig.')
+        }
+    }else if(rightGuesses >= word.length) {
+        if (confirm('Du vann! Vill du spela igen?')){
+            startGame();
+        } else {
+            prompt('Okej, tryck på "Starta spel" om du ändrar dig.')
+        }
+    }
+}
 // Funktion som inaktiverar/aktiverar bokstavsknapparna beroende på vilken del av spelet du är på
 function disableUsedButton (clickLetter, letter){
     
     clickLetter.forEach(button => {if(button.value === letter) button.disabled = true});
 }
-
-
-//
 
