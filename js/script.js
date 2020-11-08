@@ -23,7 +23,8 @@ for (let i = 0; i < clickLetter.length; i++) {
     button.addEventListener("click", () => guessLetter(button.value, selectedWord));
 } //  clickLetter.forEach(button => button.addEventListener("click", () => guessLetter(button.value, selectedWord)))); 
 
-clickLetter.forEach(button => button.disabled = true); // Avaktiverar knapparna så de inte kan användas innan man startar spelet
+// Avaktiverar knapparna så de inte kan användas innan man startar spelet
+clickLetter.forEach(button => button.disabled = true); 
 
 //removes HTML
 const setEmpty = (element) => element.innerHTML = '';
@@ -35,6 +36,9 @@ function startGame() {
     activateLetterButtons(clickLetter);
     deleteBlanks();
     createBlanks(selectedWord);
+    guesses = 0;
+    rightGuesses = 0;
+    drawPicture(guesses);
 }
 // Funktion som slumpar fram ett ord
 function randomWord() {
@@ -75,6 +79,7 @@ function guessLetter(letter, word) {
     if (guessedRight == false) {
         guesses++;
         console.log("du har svarat fel: " + guesses + " gånger.");
+        drawPicture(guesses);
 
     } 
     disableUsedButton(clickLetter, letter);
@@ -82,17 +87,17 @@ function guessLetter(letter, word) {
 }
 // Funktion som ropas vid vinst eller förlust, gör olika saker beroende tillståndet
 function winOrLose(guesses, rightGuesses, word){
-    if(guesses > 7){
+    if(guesses >= 6){
         if (confirm('Du förlorade. Vill du spela igen?')){
             startGame();
         } else {
-            prompt('Okej, tryck på "Starta spel" om du ändrar dig.')
+            alert('Okej, tryck på "Starta spel" om du ändrar dig.')
         }
     }else if(rightGuesses >= word.length) {
         if (confirm('Du vann! Vill du spela igen?')){
             startGame();
         } else {
-            prompt('Okej, tryck på "Starta spel" om du ändrar dig.')
+            alert('Okej, tryck på "Starta spel" om du ändrar dig.')
         }
     }
 }
@@ -102,3 +107,32 @@ function disableUsedButton (clickLetter, letter){
     clickLetter.forEach(button => {if(button.value === letter) button.disabled = true});
 }
 
+//Funktion som ritar ut gubben som hängs
+
+function drawPicture(guesses){
+    const drawingSpace = document.querySelector("#hangman");
+    
+    switch (guesses){
+        case 1: 
+            drawingSpace.src = "images/h1.png";
+            return;
+        case 2: 
+            drawingSpace.src = "images/h2.png";
+            return;
+        case 3: 
+            drawingSpace.src = "images/h3.png";
+            return;
+        case 4: 
+            drawingSpace.src = "images/h4.png";
+            return;
+        case 5: 
+            drawingSpace.src = "images/h5.png";
+            return;
+        case 6: 
+            drawingSpace.src = "images/h6.png";
+            return;
+        default:
+            drawingSpace.src = "images/h0.png";
+            return;
+    }
+}
