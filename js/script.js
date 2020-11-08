@@ -65,12 +65,9 @@ function guessLetter(letter, word) {
     let guessedRight = false;
     const getBlanks = document.querySelectorAll(".letterBoxesUl li");
     for (let i = 0; i < word.length; i++) {
-        console.log(getBlanks[i]);
-        console.log(word.charAt(i));
+        
         if (letter == word.charAt(i)) {
-            getBlanks[i].innerHTML = '<input type="text" value="' + letter + '" />'; //funkar inte riktigt, placerar bokstäver fel och skriver över ibland? 
-            // getBlanks[i].value = letter; //funkar inte 
-            console.log(getBlanks[i]);
+            getBlanks[i].innerHTML = '<input type="text" value="' + letter + '" />'; 
             guessedRight = true;
         }
 
@@ -81,13 +78,15 @@ function guessLetter(letter, word) {
 
     }
     disableUsedButton(clickLetter, letter);
+    
 }
 // Funktion som ropas vid vinst eller förlust, gör olika saker beroende tillståndet
 // Funktion som inaktiverar/aktiverar bokstavsknapparna beroende på vilken del av spelet du är på
 function disableUsedButton (clickLetter, letter){
-    clickLetter.forEach(button => {if(button.value == letter) button.disable});
+    
+    clickLetter.forEach(button => {if(button.value === letter) button.disabled = true});
 }
 
 
-
+//
 
