@@ -77,6 +77,7 @@ function guessLetter(letter, word) {
         console.log("du har svarat fel: " + guesses + " gånger.");
         msgHolderEl.innerHTML = 'Du har ' + (6 - guesses) + ' gissningar kvar.';
         drawPicture(guesses);
+        updateCounter(guesses);
 
     } 
     disableUsedButton(clickLetter, letter);
@@ -101,7 +102,7 @@ function disableUsedButton (clickLetter, letter){
     clickLetter.forEach(button => {if(button.value === letter) button.disabled = true});
 }
 
-//Funktion som ritar ut gubben som hängs
+//Funktion som ritar ut gubben som hängs, funk. visar inget om inget fel är registrerat
 
 function drawPicture(guesses){
     const drawingSpace = document.querySelector("#hangman");
@@ -109,6 +110,7 @@ function drawPicture(guesses){
     switch (guesses){
         case 1: 
             drawingSpace.src = "images/h1.png";
+            drawingSpace.style.display ='flex';
             return;
         case 2: 
             drawingSpace.src = "images/h2.png";
@@ -126,7 +128,8 @@ function drawPicture(guesses){
             drawingSpace.src = "images/h6.png";
             return;
         default:
-            drawingSpace.src = "images/h0.png";
+            drawingSpace.style.display ='none';
+
             return;
     }
 }
@@ -135,4 +138,9 @@ function drawPicture(guesses){
 function showInstructions(yesNo){
     const instructions = document.querySelector('.hideLater');
     instructions.style.display = yesNo;
+}
+
+function updateCounter (guesses){
+    const questionCounter = document.querySelector(".counter");
+    questionCounter.innerHTML = 6 - guesses;
 }

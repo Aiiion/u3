@@ -6,21 +6,45 @@
     <title>Hangman</title>
     <link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
+<!-- ant:
+hänga gubbe borde ta textens plats när spelet strtas
+fixa layouten
+fixa räknare för vinster/förluster -->
+
 
 <body>
-    <header>
-        <h1>Uppgift 03 - Hangman</h1>
-    </header>
     <main>
+        <header>
+        <h2 id="title">Välkommen till spelet Hänga gubbe.</h2>
+        <div class="counterbox"></div>
+        <p>räknare för förluster</p>
+        </div>
+        </header>
+        <br />
+        <header>
+            
         <article class="hideLater">
-            <h2>Välkommen till spelet Hänga gubbe.</h2>
-            <p>När du trycker på starta spelet, kommer datorn att välja ett ord slumpmässigt. <br/>
+            
+            <p><b>
+                När du trycker på starta spelet, kommer datorn att välja ett ord slumpmässigt. <br/>
                Det kommer då dyka upp ett visst antal fält som motsvarar antalet bokstäver i ordet. <br/>
                Ditt mål är att gissa ordet genom att trycka på bokstavsknapparna.<br/>
                För varje bokstav du gissar rätt, så fylls dyker det upp en bokstav i på den plats som bokstaven du gissade på motsvarar i ordet.
+            </b>
             </p>
+            
         </article>
+        <div class="counterBox">
+            <p>Gissingar kvar:</p>
+            <br />
+            <p class="counter"></p>
+        </div>
+    </header>
+        <br />
         <button class="btn btn--stripe" type="button" id="startGameBtn">Starta spelet</button>
+        <section id="message">
+            <!-- This is where messages should appear -->
+        </section>
         <section id="gameBoard">
             <ul id="letterButtons">
                 <li><button class="btn btn--stripe" type="button" value="A">A</button></li>
@@ -61,9 +85,7 @@
             </section>
             <img id="hangman" src="/images/h0.png" alt="hangman">
         </section>
-        <section id="message">
-            <!-- This is where messages should appear -->
-        </section>
+       
         
     </main>
     <footer>
