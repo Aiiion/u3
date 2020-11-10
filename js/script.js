@@ -5,12 +5,8 @@ let selectedWord;    // Sträng: ett av orden valt av en slumpgenerator från ar
 
 let guesses = 0;     // Number: håller antalet fel gissningar som gjorts
 let rightGuesses = 0; // Number: håller antalet rätt gissningar som gjorts
-let hangmanImg;      // Sträng: sökväg till bild som kommer visas (och ändras) fel svar. t.ex. `/images/h1.png`
 
-let msgHolderEl;     // DOM-nod: Ger meddelande när spelet är över
-let startGameBtnEl;  // DOM-nod: knappen som du startar spelet med
-let letterButtonEls; // Array av DOM-noder: Knapparna för bokstäverna
-let letterBoxEls;    // Array av DOM-noder: Rutorna där bokstäverna ska stå
+let msgHolderEl = document.querySelector("#message");     // DOM-nod: Ger meddelande när spelet är över
 
 //eventlisteners for start game button
 const clickToStart = document.querySelector("#startGameBtn");
@@ -18,10 +14,8 @@ clickToStart.addEventListener("click", startGame);
 
 //eventliseners for letter buttons
 const clickLetter = document.querySelectorAll("#letterButtons button");
-for (let i = 0; i < clickLetter.length; i++) {
-    const button = clickLetter[i];
-    button.addEventListener("click", () => guessLetter(button.value, selectedWord));
-} //  clickLetter.forEach(button => button.addEventListener("click", () => guessLetter(button.value, selectedWord)))); 
+
+clickLetter.forEach(button => button.addEventListener("click", () => guessLetter(button.value, selectedWord))); 
 
 // Avaktiverar knapparna så de inte kan användas innan man startar spelet
 clickLetter.forEach(button => button.disabled = true); 
@@ -39,6 +33,8 @@ function startGame() {
     guesses = 0;
     rightGuesses = 0;
     drawPicture(guesses);
+    showInstructions('none');
+    msgHolderEl.innerHTML = 'Lycka till!';
 }
 // Funktion som slumpar fram ett ord
 function randomWord() {
@@ -56,11 +52,11 @@ function createBlanks(word) {
         blank.innerHTML += `<li><input type="text" value="_" /></li>`;
     }
 }
+//Funktion som tar bort de gamla tomrutorna (om de finns)
 function deleteBlanks(){
     const currentBlanks = document.querySelectorAll(".letterBoxesUl");
  
     if (currentBlanks != ''){
-        // currentBlanks.removeChild(main.children);
         currentBlanks.forEach(setEmpty);
     }
 }
@@ -79,6 +75,7 @@ function guessLetter(letter, word) {
     if (guessedRight == false) {
         guesses++;
         console.log("du har svarat fel: " + guesses + " gånger.");
+        msgHolderEl.innerHTML = 'Du har ' + (6 - guesses) + ' gissningar kvar.';
         drawPicture(guesses);
 
     } 
@@ -88,18 +85,15 @@ function guessLetter(letter, word) {
 // Funktion som ropas vid vinst eller förlust, gör olika saker beroende tillståndet
 function winOrLose(guesses, rightGuesses, word){
     if(guesses >= 6){
-        if (confirm('Du förlorade. Vill du spela igen?')){
-            startGame();
-        } else {
-            alert('Okej, tryck på "Starta spel" om du ändrar dig.')
-        }
+        msgHolderEl.innerHTML = 'LOSER, du förlorade. Men du ger väl inte upp ännu? Försök igen, tryck STARTA SPELET';
+        clickLetter.forEach(button => button.disabled = true);
+        showInstructions('inline');  
     }else if(rightGuesses >= word.length) {
-        if (confirm('Du vann! Vill du spela igen?')){
-            startGame();
-        } else {
-            alert('Okej, tryck på "Starta spel" om du ändrar dig.')
-        }
+        msgHolderEl.innerHTML = 'WINNER WINNER CHICKEN DINNER, försök igen, du hade säkert bara tur. Tryck STARTA SPELET';
+        clickLetter.forEach(button => button.disabled = true);
+        showInstructions('inline');   
     }
+     
 }
 // Funktion som inaktiverar/aktiverar bokstavsknapparna beroende på vilken del av spelet du är på
 function disableUsedButton (clickLetter, letter){
@@ -135,4 +129,10 @@ function drawPicture(guesses){
             drawingSpace.src = "images/h0.png";
             return;
     }
+}
+
+//Funktion som gömmer instruktionerna när spelet startar, för bättre överblick
+function showInstructions(yesNo){
+    const instructions = document.querySelector('.hideLater');
+    instructions.style.display = yesNo;
 }
