@@ -124,7 +124,7 @@ footer {
   padding:1%;
   border-radius: 5px;
   min-height: 50px;
-  margin-top:-10%;
+  margin-top:-5%;
 }
 
 .btn {
@@ -220,6 +220,8 @@ footer {
   justify-content: flex-start;
   width: 65%;
   text-align: center;
+  margin-bottom:0px;
+  height:20%;
 }
 #hangman{
   justify-content: flex-start;
@@ -241,6 +243,7 @@ footer {
 }
 header {
   display:flex;
+  height:20%;
 }
 
 #title{
