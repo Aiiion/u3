@@ -130,7 +130,6 @@ footer {
 .btn {
   -moz-user-select: text;
   background-color: purple;
-  /* background: transparent; */
   border-radius: 6px;
   border: 0;
   border: 2px solid rgb(84, 209, 12);
