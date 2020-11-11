@@ -17,7 +17,7 @@ fixa räknare för vinster/förluster -->
         <header>
         <h2 id="title">Välkommen till spelet Hänga gubbe.</h2>
         <div class="counterbox"></div>
-        <p>räknare för förluster</p>
+        <p id="points">Poäng: 0</p>
         </div>
         </header>
         <br />
@@ -34,17 +34,20 @@ fixa räknare för vinster/förluster -->
             </p>
             
         </article>
+        <img id="hangman" src="/images/h0.png" alt="hangman" >
         <div class="counterBox">
             <p>Gissingar kvar:</p>
             <br />
-            <p class="counter"></p>
+            <h2 class="counter">N/A</h2>
         </div>
+        
     </header>
+    <section id="message">
+        <!-- This is where messages should appear -->Redo?
+    </section>
         <br />
         <button class="btn btn--stripe" type="button" id="startGameBtn">Starta spelet</button>
-        <section id="message">
-            <!-- This is where messages should appear -->
-        </section>
+        
         <section id="gameBoard">
             <ul id="letterButtons">
                 <li><button class="btn btn--stripe" type="button" value="A">A</button></li>

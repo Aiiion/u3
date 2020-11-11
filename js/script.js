@@ -6,6 +6,8 @@ let selectedWord;    // Sträng: ett av orden valt av en slumpgenerator från ar
 let guesses = 0;     // Number: håller antalet fel gissningar som gjorts
 let rightGuesses = 0; // Number: håller antalet rätt gissningar som gjorts
 
+let winns = 0; //håller reda på antalet vinster/förluster med poäng
+
 let msgHolderEl = document.querySelector("#message");     // DOM-nod: Ger meddelande när spelet är över
 
 //eventlisteners for start game button
@@ -14,7 +16,6 @@ clickToStart.addEventListener("click", startGame);
 
 //eventliseners for letter buttons
 const clickLetter = document.querySelectorAll("#letterButtons button");
-
 clickLetter.forEach(button => button.addEventListener("click", () => guessLetter(button.value, selectedWord))); 
 
 // Avaktiverar knapparna så de inte kan användas innan man startar spelet
@@ -33,7 +34,8 @@ function startGame() {
     guesses = 0;
     rightGuesses = 0;
     drawPicture(guesses);
-    showInstructions('none');
+    //showInstructions('none');
+    updateCounter(guesses);
     msgHolderEl.innerHTML = 'Lycka till!';
 }
 // Funktion som slumpar fram ett ord
@@ -88,13 +90,15 @@ function winOrLose(guesses, rightGuesses, word){
     if(guesses >= 6){
         msgHolderEl.innerHTML = 'LOSER, du förlorade. Men du ger väl inte upp ännu? Försök igen, tryck STARTA SPELET';
         clickLetter.forEach(button => button.disabled = true);
-        showInstructions('inline');  
+        showInstructions('inline');
+        winns--;  
     }else if(rightGuesses >= word.length) {
         msgHolderEl.innerHTML = 'WINNER WINNER CHICKEN DINNER, försök igen, du hade säkert bara tur. Tryck STARTA SPELET';
         clickLetter.forEach(button => button.disabled = true);
-        showInstructions('inline');   
+        showInstructions('inline'); 
+        winns++;  
     }
-     
+    updatePoints(winns);
 }
 // Funktion som inaktiverar/aktiverar bokstavsknapparna beroende på vilken del av spelet du är på
 function disableUsedButton (clickLetter, letter){
@@ -128,8 +132,8 @@ function drawPicture(guesses){
             drawingSpace.src = "images/h6.png";
             return;
         default:
-            drawingSpace.style.display ='none';
-
+            //drawingSpace.style.display ='none';
+            drawingSpace.src = "images/h0.png";
             return;
     }
 }
@@ -139,8 +143,13 @@ function showInstructions(yesNo){
     const instructions = document.querySelector('.hideLater');
     instructions.style.display = yesNo;
 }
-
+//Funktion som uppdaterar antalet gissningar kvar
 function updateCounter (guesses){
     const questionCounter = document.querySelector(".counter");
     questionCounter.innerHTML = 6 - guesses;
+}
+//Funktion som uppdaterar antalet poäng hittils
+function updatePoints(winns){
+    const pointDisplay = document.querySelector('#points');
+    pointDisplay.innerHTML = 'Poäng: ' + winns;
 }

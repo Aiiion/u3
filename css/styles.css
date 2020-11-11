@@ -113,10 +113,18 @@ footer {
 }
 
 #message {
+  display:flex;
+  flex-wrap:wrap;
   padding-top: 20px;
   font-size: 1.5em;
-  width: 60%;
-  float:right;
+  width: 65%;
+  background-color: black;
+  border: 1px solid white;
+  text-align: center;
+  padding:1%;
+  border-radius: 5px;
+  min-height: 50px;
+  margin-top:-10%;
 }
 
 .btn {
@@ -211,15 +219,26 @@ footer {
 
 .hideLater {
   justify-content: flex-start;
-  width: 70%;
+  width: 65%;
+  text-align: center;
+}
+#hangman{
+  justify-content: flex-start;
+  width: 20%;
   text-align: center;
 }
 
 .counterBox {
   justify-content: flex-end;
-  width:30%;
+  width:10%;
   background-color: black;
   height:100%;
+  border: 1px solid white;
+  padding: 2%;
+  text-align: center;
+  border-radius: 7px;
+  font-style: inherit;
+  
 }
 header {
   display:flex;
