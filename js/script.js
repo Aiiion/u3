@@ -10,6 +10,10 @@ let winns = 0; //håller reda på antalet vinster/förluster med poäng
 
 let msgHolderEl = document.querySelector("#message");     // DOM-nod: Ger meddelande när spelet är över
 
+//queryselector för ljud
+let myAudio = document.querySelector('#audio');
+
+
 //eventlisteners for start game button
 const clickToStart = document.querySelector("#startGameBtn");
 clickToStart.addEventListener("click", startGame);
@@ -37,6 +41,7 @@ function startGame() {
     //showInstructions('none');
     updateCounter(guesses);
     msgHolderEl.innerHTML = 'Lycka till!';
+    myAudio.play();
 }
 // Funktion som slumpar fram ett ord
 function randomWord() {
